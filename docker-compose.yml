@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres
+
+  postgres:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_USER: rps
+      POSTGRES_PASSWORD: rps
+      POSTGRES_DB: rps
+    ports:
+      - 5432:5432
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  postgres:
+    driver: local

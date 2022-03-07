@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ConsoleAsyncAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>1024</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="ConsoleAppender" />
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ConsoleAsyncAppender"/>
+    </root>
+
+    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="INFO" additivity="false">
+        <appender-ref ref="ConsoleAsyncAppender" />
+    </logger>
+</configuration>
